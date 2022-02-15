@@ -1,0 +1,38 @@
+The following host will give the backend to work this demo, before send any request we need to attach the indicated headers
+host = https://travel.mints.cloud/
+
+headers = {
+    'ApiKey' => '99296b00807e5fe3931bdb0b7b48b32f',
+    'Accept' => 'application/json',
+    'ContentType' => 'application/json',
+}
+
+Content Bundles:
+This api gives functionality to get the content for the requested page, this can include forms, stories, products, and content instances
+/api/v1/content/content-pages/:slug
+in this demo will use this slug blog-page
+
+Stories:
+With this endpoint we can get every story from california, if you want to attach extra data you need to send more parameters like:
+1.- attributes to get story atttributes.
+2.- taxonomies to get the related taxonomies in every story
+3.- page & pageSize to paginate the filtered data
+/api/v1/content/stories/:slug?attributes&taxonomies&page={PAGE}&pageSize={PAGE_SIZE}
+
+Forms:
+To submit the form answers you need to make a POST call to the next endpoint
+/api/v1/content/forms/{FORM_SLUG}/submit
+
+the data struct will be the following
+
+"data": {
+    "fields": {
+        // here are located all the filled fields, example:
+        "given_name": "Mints",
+        "colors": ["red", "blue"],
+        "phone": { 
+            "number": "6561111111", 
+            "countryCode": "+52"
+        }
+    }
+}
