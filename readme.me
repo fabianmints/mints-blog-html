@@ -8,31 +8,74 @@ headers = {
 }
 
 Content Bundles:
-This api gives functionality to get the content for the requested page, this can include forms, stories, products, and content instances
-/api/v1/content/content-pages/:slug
-in this demo will use this slug blog-page
-
+    This api gives functionality to get the content for the requested page, this can include forms, stories, products, and content instances
+    /api/v1/content/content-pages/:slug
+    in this demo will use this slug blog-page
+    Response example:
+    "data": [{
+        "instance": {
+            "{INSTANCE_SLUG}": {
+                "content": {
+                    "values": {
+                        // all content for that content instance
+                    }
+                }
+            }
+        },
+        "form": {
+            "{FORM_SLUG}": {
+                "content": {
+                    // all content for that form
+                }
+            }
+        }
+    }]
 Stories:
-With this endpoint we can get every story from california, if you want to attach extra data you need to send more parameters like:
-1.- attributes to get story atttributes.
-2.- taxonomies to get the related taxonomies in every story
-3.- page & pageSize to paginate the filtered data
-/api/v1/content/stories/:slug?attributes&taxonomies&page={PAGE}&pageSize={PAGE_SIZE}
+    With this endpoint we can get every story from california, if you want to attach extra data you need to send more parameters like:
+    1.- attributes to get story atttributes.
+    2.- taxonomies to get the related taxonomies in every story
+    3.- page & pageSize to paginate the filtered data
+    /api/v1/content/stories/:slug?attributes&taxonomies&page={PAGE}&pageSize={PAGE_SIZE}
+
+    Response example:
+    "data": [{
+        "attributions_json": null,
+        "author_id": null,
+        "blurb": "Short description",
+        "body": "Long description",
+        "created_at": "2021-11-08T08:16:22+00:00",
+        "draft": "{}",
+        "id": 1,
+        "imagen_nota": { id: 118, alt: "", slug: "playa-balandra-en-baja-california-la-conoces",…}, //This is one attribute from the current story
+        "published_at": "2021-11-08T08:16:23+00:00",
+        "scheduled_at": null,
+        "slug": "playa-balandra-en-baja-california-la-conoces",
+        "social_metadata": "{}",
+        "story_template_id": 1,
+        "taxonomies": [{id: 83, slug: "categorias-blog", title: "Categorias blog", object_id: 83, parent_id: null,…}], //Taxonomies attached by url parameter
+        "title": "Playa Balandra en Baja California ¿La conoces?",
+        "updated_at": "2021-11-08T08:16:23+00:00"
+    }],
+    "meta": {
+        "filtered": 1,
+        "total": ...
+    }
+
 
 Forms:
-To submit the form answers you need to make a POST call to the next endpoint
-/api/v1/content/forms/{FORM_SLUG}/submit
+    To submit the form answers you need to make a POST call to the next endpoint
+    /api/v1/content/forms/{FORM_SLUG}/submit
 
-the data struct will be the following
+    the data struct will be the following
 
-"data": {
-    "fields": {
-        // here are located all the filled fields, example:
-        "given_name": "Mints",
-        "colors": ["red", "blue"],
-        "phone": { 
-            "number": "6561111111", 
-            "countryCode": "+52"
+    "data": {
+        "fields": {
+            // here are located all the filled fields, example:
+            "given_name": "Mints",
+            "colors": ["red", "blue"],
+            "phone": { 
+                "number": "6561111111", 
+                "countryCode": "+52"
+            }
         }
     }
-}
